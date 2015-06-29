@@ -1,7 +1,4 @@
 require 'data_mapper'
-require 'dm-postgres-adapter'
-
-DataMapper.setup(:default, "postgres://localhost/bookmark_manager")
 
 class Link
 
@@ -13,6 +10,5 @@ class Link
 
 end
 
-DataMapper.finalize
 
-DataMapper.auto_upgrade!
+

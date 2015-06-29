@@ -1,3 +1,5 @@
+require './app/models/link'
+
 feature 'User browses the list of links' do
 
   scenario 'when visiting the links page' do

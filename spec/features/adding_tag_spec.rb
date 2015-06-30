@@ -4,10 +4,10 @@ feature 'Adding tags' do
     visit '/links/new'
     fill_in 'url',   with: 'http://www.makersacademy.com/'
     fill_in 'title', with: 'Makers Academy'
-    fill_in 'tags', with: 'education' #single tag for now
+    fill_in 'tag',   with: 'education' #single tag for now
     click_button 'Create Link'
     link = Link.first
-    expect(link.tags).to include('education')
+    expect(link.tags.map(&:name)).to include 'education'
   end  
 
 end

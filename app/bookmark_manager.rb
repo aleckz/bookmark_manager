@@ -24,22 +24,19 @@ class BookmarkManager < Sinatra::Base
      # OLD VERSION: Link.create(url: params[:url], title: params[:title], tag: params[:tag])
     link = Link.new(url: params[:url],
                     title: params[:title])
-    tag  = Tag.create(name: params[:tag])
-    link.tags << tag
+    tags = params[:tags].split
+    tags.each do |tag|
+      link.tags << Tag.create(name: tag)
+    end
     link.save 
     redirect '/links'
-<<<<<<< HEAD
-=======
   end
 
   get '/tags/:name' do
     tag = Tag.first(name: params[:name])
     @links = tag ? tag.links : []
     erb :'links/index'
->>>>>>> b931b81f1b57a60fe28cd464292de3876e3aa35d
   end
-
-
 
 run! if app_file == $0
 

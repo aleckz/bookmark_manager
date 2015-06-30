@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require './app/models/link'
+require './app/models/tag'
 require_relative 'data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
@@ -20,8 +21,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/links' do
-     Link.create(url: params[:url], title: params[:title], tags: params[:tags])
-     redirect '/links'
+     # OLD VERSION: Link.create(url: params[:url], title: params[:title], tag: params[:tag])
+    link = Link.new(url: params[:url],
+                    title: params[:title])
+    tag  = Tag.create(name: params[:tag])
+    link.tags << tag
+    link.save 
+    redirect '/links'
   end
 
 run! if app_file == $0

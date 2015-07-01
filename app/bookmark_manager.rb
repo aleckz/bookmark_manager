@@ -49,6 +49,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
+    @message = 'Sorry, your passwords do not match.'
     user = User.create(email: params[:email], 
                        password: params[:password], 
                        password_confirmation: params[:password_confirmation]) 

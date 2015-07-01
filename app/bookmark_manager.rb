@@ -5,6 +5,9 @@ require_relative 'data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
 
+  enable :sessions
+  set :session_secret, 'super secret'
+
   set :views, proc {File.join(root,'.', 'views')}
 
   get '/' do
@@ -12,8 +15,6 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/links' do
-    # require 'byebug'
-    # byebug
     @links = Link.all
     erb :'links/index'
   end
@@ -48,10 +49,19 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
-    @user = User.create(email: params[:email], password: params[:password])
-    redirect to('/links')
+    user = User.create(email: params[:email], password: params[:password])
+    session[:user_id] = user.id # 3
+    redirect to('/')
   end
 
+  helpers do
+
+    def current_user
+     @user ||= User.get(session[:user_id])
+     # User(id:, session[:user_id]) is returning an array with the user that has the corresponding ID, .first is being called to extract that user.  
+    end
+
+  end
 
 
 run! if app_file == $0

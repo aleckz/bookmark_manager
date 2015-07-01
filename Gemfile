@@ -7,6 +7,7 @@ ruby "2.2.1"
   gem 'database_cleaner'
   gem 'rake'
   gem 'bcrypt'
+  gem 'dm-validations'
 
 group :test do
   gem 'rspec'

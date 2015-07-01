@@ -2,6 +2,7 @@ env = ENV['RACK_ENV'] || 'development'
 
 require 'data_mapper'
 require 'dm-postgres-adapter'
+require 'dm-validations'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bookmark_manager_#{env}")
 # now that a database EXISTS in Heroku, which you create by googling Heroku PSQL database setup, 

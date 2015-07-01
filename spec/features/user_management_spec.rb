@@ -1,11 +1,13 @@
 feature 'User sign up' do
 
   def sign_up(email: 'alice@example.com', 
-              password: 'oranges!')
+              password: 'oranges!',
+              password_confirmation: 'oranges!')
       visit '/users/new'
       expect(page.status_code).to eq(200)
       fill_in :email,   with: email
       fill_in :password, with: password
+      fill_in :password_confirmation, with: password_confirmation
       click_button 'Sign up'
   end
 
@@ -16,8 +18,10 @@ feature 'User sign up' do
   end
 
   scenario 'requires a matching confirmation password' do
-    expect { sign_up(password_confirmation: 'wrong') }.not_to change(User, :count)
-    expect(page).to have_content 'your password and confirmation passwords do not match'
+    expect { sign_up(password_confirmation: 'notoranges!') }.not_to change(User, :count)
+    expect(current_path).to eq ('/users')
+    # expect(status_code).to eq 200
+    expect(page).to have_content 'Sorry, your passwords do not match.'
   end
   
 end

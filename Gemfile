@@ -14,5 +14,4 @@ group :test do
   gem 'capybara'
   gem 'rspec-sinatra'
   gem 'byebug'
->>>>>>> 6a020e33ac0077f3b784f820be59b8b3305f94cb
 end

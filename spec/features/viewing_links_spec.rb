@@ -1,6 +1,3 @@
-feature 'Viewing links' do
-
-  scenario 'I can see existing links on the links page' do
 feature 'User browses the list of links' do
 
 before(:each) do

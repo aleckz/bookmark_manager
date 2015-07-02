@@ -14,4 +14,5 @@ require_relative './models/user'
 
 DataMapper.finalize
 
-DataMapper.auto_upgrade!
+DataMapper.auto_upgrade! # slash migrate! for email
+                         

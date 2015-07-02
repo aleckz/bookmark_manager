@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require './app/models/link'
 require './app/models/tag'
 require_relative 'data_mapper_setup'
@@ -7,6 +8,8 @@ class BookmarkManager < Sinatra::Base
 
   enable :sessions
   set :session_secret, 'super secret'
+
+  register Sinatra::Flash
 
   set :views, proc {File.join(root,'.', 'views')}
 
@@ -49,16 +52,19 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
-    @message = 'Sorry, your passwords do not match.'
-    user = User.create(email: params[:email], 
+    # @message = 'Sorry, your passwords do not match.'
+    user = User.new(   email: params[:email], 
                        password: params[:password], 
                        password_confirmation: params[:password_confirmation]) 
     session[:user_id] = user.id # 3
+    user.save
     if user.save 
       session[:user_id] = user.id
       redirect to('/')
     else
-      erb :'users/new'
+     notice = user.errors.full_messages.join('<br/>')
+     flash.now[:notice] = notice
+     erb :'users/new'
     end
   end
 
@@ -66,7 +72,6 @@ class BookmarkManager < Sinatra::Base
 
     def current_user
      @user ||= User.get(session[:user_id])
-     # User(id:, session[:user_id]) is returning an array with the user that has the corresponding ID, .first is being called to extract that user.  
     end
 
   end

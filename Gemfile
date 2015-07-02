@@ -8,6 +8,7 @@ ruby "2.2.1"
   gem 'rake'
   gem 'bcrypt'
   gem 'dm-validations'
+  gem 'sinatra-flash'
 
 group :test do
   gem 'rspec'

@@ -21,7 +21,7 @@ feature 'User sign up' do
     expect { sign_up(password_confirmation: 'notoranges!') }.not_to change(User, :count)
     expect(current_path).to eq ('/users')
     # expect(status_code).to eq 200
-    expect(page).to have_content 'Sorry, your passwords do not match.'
-  end
-  
+    expect(page).to have_content 'Password does not match the confirmation'
+    end
+    
 end

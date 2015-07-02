@@ -1,14 +1,16 @@
-require 'data_mapper'
-require 'dm-validations'
-
-
 env = ENV['RACK_ENV'] || 'development'
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bookmark_manager_#{env}")
+require 'data_mapper'
+require 'dm-postgres-adapter'
+require 'dm-validations'
 
-require './app/models/link.rb'
-require './app/models/tag.rb'
-require './app/models/user.rb'
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bookmark_manager_#{env}")
+# now that a database EXISTS in Heroku, which you create by googling Heroku PSQL database setup,
+# all of this code is going to the Heroku database INSTEAD OF (||) localhost.
+require_relative './models/link'
+require_relative './models/tag'
+require_relative './models/user'
+
 
 DataMapper.finalize
 

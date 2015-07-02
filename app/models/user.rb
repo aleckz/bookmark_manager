@@ -13,10 +13,8 @@ class User
 
   def password= password
     @password = password
-    self.password_digest = BCrypt::Password.create password
+    self.password_digest = BCrypt::Password.create(password)
   end
-
-
 
   validates_confirmation_of :password
 

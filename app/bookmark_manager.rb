@@ -6,7 +6,7 @@ require_relative 'data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
   use Rack::MethodOverride
-  
+
   enable :sessions
   set :session_secret, 'super secret'
 
@@ -82,6 +82,14 @@ class BookmarkManager < Sinatra::Base
     end
   end
 
+    delete '/sessions' do
+      session.clear
+      erb :'users/signout'
+    end
+
+    get '/sessions' do
+      redirect '/'
+    end
 
   helpers do
 

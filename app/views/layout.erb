@@ -7,14 +7,16 @@
 	<body>
 		<% if current_user %>
 			<h2>Welcome, <%= current_user.email %></h2>
-			<form method='post' action='/sessions'>
-				<input type='hidden' name='_method' value='delete'>
-				<input tyoe='submit' value='Sign out'>
+			<form method="POST" action="/sessions">
+				<input type="hidden" name="_method" value="delete">
+				<input type="submit" value="Sign out">
 			</form>
 		<% end %>
 
 		<% if flash[:notice] %>
-			<div id='notice'><%= flash[:notice]%></div>
+			<div id='notice'>
+				<%= flash[:notice]%>
+			</div>
 		<% end %>
 		
 		<% if flash[:errors] && !flash[:errors].empty? %>

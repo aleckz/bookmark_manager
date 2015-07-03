@@ -69,14 +69,15 @@ feature 'User sign up' do
                       password_confirmation: 'oranges')
         end
 
-        def sign_in email:, password:
+        def sign_in email, password
         visit '/sessions/new'
-        fill_in :email, with: 'test@test.com'
-        fill_in :password, with: '12345'
+        fill_in :email, with: email
+        fill_in :password, with: password
         end
 
       scenario 'while being signed in' do
-          sign_in(email: 'test@test.com', password: 'oranges')
+          sign_in('test@test.com', 'oranges')
+          click_button 'Sign in'
           click_button 'Sign out'
           expect(page).to have_content 'Goodbye!'
           expect(page).to_not have_content 'Welcome, test@test.com'
